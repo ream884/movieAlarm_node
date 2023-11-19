@@ -1,14 +1,15 @@
 const http = require("http")
 const scheduler = require("node-schedule")
 const movie = require("./movie")
+const message = require("./message")
 
 async function sendMovieMessage() {
     let movieTitles = await movie.getMovieTitles()
 
-    console.log(movieTitles)
+    message.sendMovieInfo(movieTitles.join())
 }
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
     res.writeHead(200,{'Content-Type':'text/html'})
     res.end('Hello World !@#$')
 })
